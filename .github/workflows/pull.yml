@@ -1,0 +1,88 @@
+name: Test Boot
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        # Run on the latest minor release of Go 1.22:
+        go-version: ^1.22
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Ensure all files were formatted as per gofmt
+      run: |
+        [ "$(gofmt -l $(find . -name '*.go') 2>&1)" = "" ]
+
+    - name: Install dependencies
+      run: |
+        sudo apt update && sudo apt install qemu-system-x86
+        GOPROXY=direct go install github.com/gokrazy/autoupdate/cmd/...@latest
+        GOPROXY=direct GOBIN=$PWD/_build go install github.com/gokrazy/autoupdate/cmd/gokr-rebuild-kernel@latest
+        GOPROXY=direct go install github.com/gokrazy/tools/cmd/gok@latest
+        GOPROXY=direct go install github.com/gokrazy/bakery/cmd/qemubootery@latest
+
+    # TODO: once https://github.com/actions/runner/issues/662 is fixed, we can
+    # remove the gokr-has-label guards and terminate a CI run instead.
+    - name: Test Boot
+      env:
+        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+        GH_USER: ${{ secrets.GH_USER }}
+        GH_AUTH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}
+        TRAVIS_PULL_REQUEST: ${{ github.event.pull_request.number }}
+        TRAVIS_PULL_REQUEST_BRANCH: ${{ github.event.pull_request.head.ref }}
+        BOOTERY_URL: ${{ secrets.BOOTERY_URL }}
+        GOKRAZY_BAKERY_PASSWORD: ${{ secrets.GOKRAZY_BAKERY_PASSWORD }}
+      if: ${{ env.GH_USER != 0 }}
+      run: |
+        .github/workflows/create-bakery.bash
+        gok -i bakery add .
+        if gokr-has-label please-boot; then cd ~/gokrazy/bakery && GOARCH=amd64 gokr-boot -require_label=please-boot -set_label=please-boot-qemu -bootery_url=$BOOTERY_URL -update_root; fi
+
+    - name: Test Boot on qemu
+      env:
+        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+        GH_USER: ${{ secrets.GH_USER }}
+        GH_AUTH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}
+        TRAVIS_PULL_REQUEST: ${{ github.event.pull_request.number }}
+        TRAVIS_PULL_REQUEST_BRANCH: ${{ github.event.pull_request.head.ref }}
+        BOOTERY_URL: ${{ secrets.BOOTERY_URL }}
+      if: ${{ env.GH_USER != 0 }}
+      run: |
+        sed -i 's,"Hostname": "[^"]*","Hostname": "qemubakery",g' ~/gokrazy/bakery/config.json
+        if gokr-has-label please-boot-qemu; then cd ~/gokrazy/bakery && { qemubootery & GOARCH=amd64 gokr-boot -require_label=please-boot-qemu -set_label=please-merge -bootery_url=http://localhost:8037/testboot; }; fi
+
+    - name: Build Linux kernel and amend Pull Request
+      env:
+        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+        GH_USER: ${{ secrets.GH_USER }}
+        GH_AUTH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}
+        TRAVIS_PULL_REQUEST: ${{ github.event.pull_request.number }}
+        TRAVIS_PULL_REQUEST_BRANCH: ${{ github.event.pull_request.head.ref }}
+        BOOTERY_URL: ${{ secrets.BOOTERY_URL }}
+      if: ${{ env.GH_USER != 0 }}
+      run: |
+        if ! gokr-has-label please-merge && ! gokr-has-label please-boot && ! gokr-has-label please-boot-qemu; then (cd _build && ./gokr-rebuild-kernel -cross=arm64 -dtbs= -overwrite_container_executable=docker) && gokr-amend -set_label=please-boot lib vmlinuz; fi
+
+    - name: Merge if boot successful
+      env:
+        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+        GH_USER: ${{ secrets.GH_USER }}
+        GH_AUTH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}
+        TRAVIS_PULL_REQUEST: ${{ github.event.pull_request.number }}
+        TRAVIS_PULL_REQUEST_BRANCH: ${{ github.event.pull_request.head.ref }}
+        BOOTERY_URL: ${{ secrets.BOOTERY_URL }}
+      run: |
+        if gokr-has-label please-merge; then set +e; gokr-merge -require_label=please-merge; ret=$?; [ $ret -eq 2 ] || exit $ret; fi
+
