@@ -27,7 +27,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo apt update && sudo apt install qemu-system-x86
+        sudo apt update && sudo apt install qemu-system-arm qemu-efi-aarch64
         GOPROXY=direct go install github.com/gokrazy/autoupdate/cmd/...@latest
         GOPROXY=direct GOBIN=$PWD/_build go install github.com/gokrazy/autoupdate/cmd/gokr-rebuild-kernel@latest
         GOPROXY=direct go install github.com/gokrazy/tools/cmd/gok@latest
@@ -35,7 +35,7 @@ jobs:
 
     # TODO: once https://github.com/actions/runner/issues/662 is fixed, we can
     # remove the gokr-has-label guards and terminate a CI run instead.
-    - name: Test Boot
+    - name: Test Boot on qemu
       env:
         GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
         GH_USER: ${{ secrets.GH_USER }}
@@ -48,20 +48,8 @@ jobs:
       run: |
         .github/workflows/create-bakery.bash
         gok -i bakery add .
-        if gokr-has-label please-boot; then cd ~/gokrazy/bakery && GOARCH=amd64 gokr-boot -require_label=please-boot -set_label=please-boot-qemu -bootery_url=$BOOTERY_URL -update_root; fi
-
-    - name: Test Boot on qemu
-      env:
-        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
-        GH_USER: ${{ secrets.GH_USER }}
-        GH_AUTH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}
-        TRAVIS_PULL_REQUEST: ${{ github.event.pull_request.number }}
-        TRAVIS_PULL_REQUEST_BRANCH: ${{ github.event.pull_request.head.ref }}
-        BOOTERY_URL: ${{ secrets.BOOTERY_URL }}
-      if: ${{ env.GH_USER != 0 }}
-      run: |
         sed -i 's,"Hostname": "[^"]*","Hostname": "qemubakery",g' ~/gokrazy/bakery/config.json
-        if gokr-has-label please-boot-qemu; then cd ~/gokrazy/bakery && { qemubootery & GOARCH=amd64 gokr-boot -require_label=please-boot-qemu -set_label=please-merge -bootery_url=http://localhost:8037/testboot; }; fi
+        if gokr-has-label please-boot-qemu; then cd ~/gokrazy/bakery && { truncate -s 64m varstore.img && truncate -s 64m efi.img && dd if=/usr/share/qemu-efi-aarch64/QEMU_EFI.fd of=efi.img conv=notrunc && qemubootery -arch=arm64 & GOARCH=arm64 gokr-boot -require_label=please-boot-qemu -set_label=please-merge -bootery_url=http://localhost:8037/testboot; }; fi
 
     - name: Build Linux kernel and amend Pull Request
       env:
@@ -73,7 +61,7 @@ jobs:
         BOOTERY_URL: ${{ secrets.BOOTERY_URL }}
       if: ${{ env.GH_USER != 0 }}
       run: |
-        if ! gokr-has-label please-merge && ! gokr-has-label please-boot && ! gokr-has-label please-boot-qemu; then (cd _build && ./gokr-rebuild-kernel -cross=arm64 -dtbs= -overwrite_container_executable=docker) && gokr-amend -set_label=please-boot lib vmlinuz; fi
+        if ! gokr-has-label please-merge && ! gokr-has-label please-boot-qemu; then (cd _build && ./gokr-rebuild-kernel -cross=arm64 -dtbs= -overwrite_container_executable=docker) && gokr-amend -set_label=please-boot-qemu lib vmlinuz; fi
 
     - name: Merge if boot successful
       env:
