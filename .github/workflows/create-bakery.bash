@@ -28,7 +28,7 @@ cat > ~/gokrazy/bakery/config.json <<EOT
             }
         }
     },
-    "SerialConsole": "ttyS0,115200n8",
+    "SerialConsole": "ttyAMA0,115200n8",
     "KernelPackage": "github.com/gokrazy/kernel.arm64",
     "FirmwarePackage": "github.com/gokrazy/kernel.arm64",
     "EEPROMPackage": ""
