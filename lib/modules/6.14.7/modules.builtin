@@ -1343,9 +1343,11 @@ kernel/net/netfilter/nfnetlink_queue.ko
 kernel/net/netfilter/nf_tables.ko
 kernel/net/netfilter/nft_limit.ko
 kernel/net/netfilter/nft_reject.ko
+kernel/net/netfilter/nft_reject_inet.ko
 kernel/net/netfilter/nft_log.ko
 kernel/net/netfilter/nft_hash.ko
 kernel/net/netfilter/nft_fib.ko
+kernel/net/netfilter/nft_fib_inet.ko
 kernel/net/ipv4/ip_tunnel.ko
 kernel/net/ipv4/udp_tunnel.ko
 kernel/net/ipv4/tunnel4.ko
