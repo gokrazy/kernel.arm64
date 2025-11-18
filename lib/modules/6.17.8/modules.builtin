@@ -962,6 +962,7 @@ kernel/drivers/net/ethernet/socionext/netsec.ko
 kernel/drivers/net/ethernet/ti/davinci_mdio.ko
 kernel/drivers/net/ethernet/ti/k3-cppi-desc-pool.ko
 kernel/drivers/net/ethernet/ti/ti-am65-cpsw-nuss.ko
+kernel/drivers/net/wwan/wwan.ko
 kernel/drivers/net/xen-netfront.ko
 kernel/drivers/net/net_failover.ko
 kernel/drivers/vfio/vfio.ko

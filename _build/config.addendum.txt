@@ -268,3 +268,7 @@ CONFIG_XEN_PVHVM=y
 
 # for easy sandboxing with go-landlock
 CONFIG_SECURITY_LANDLOCK=y
+
+# For cellular modems
+CONFIG_WWAN=y
+CONFIG_USB_NET_CDC_MBIM=y
