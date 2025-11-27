@@ -1008,6 +1008,12 @@ kernel/drivers/usb/host/xhci-rcar-hcd.ko
 kernel/drivers/usb/host/xhci-mtk-hcd.ko
 kernel/drivers/usb/host/xhci-tegra.ko
 kernel/drivers/usb/storage/usb-storage.ko
+kernel/drivers/usb/serial/usbserial.ko
+kernel/drivers/usb/serial/ch341.ko
+kernel/drivers/usb/serial/cp210x.ko
+kernel/drivers/usb/serial/ftdi_sio.ko
+kernel/drivers/usb/serial/option.ko
+kernel/drivers/usb/serial/usb_wwan.ko
 kernel/drivers/usb/misc/usb3503.ko
 kernel/drivers/usb/misc/brcmstb-usb-pinmap.ko
 kernel/drivers/usb/musb/musb_hdrc.ko
