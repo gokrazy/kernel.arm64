@@ -185,10 +185,34 @@ kernel/drivers/pinctrl/freescale/pinctrl-imx8ulp.ko
 kernel/drivers/pinctrl/freescale/pinctrl-imx91.ko
 kernel/drivers/pinctrl/freescale/pinctrl-imx93.ko
 kernel/drivers/pinctrl/mediatek/mtk-eint.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mtk-common.ko
 kernel/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-moore.ko
 kernel/drivers/pinctrl/mediatek/pinctrl-paris.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt2712.ko
 kernel/drivers/pinctrl/mediatek/pinctrl-mt6765.ko
 kernel/drivers/pinctrl/mediatek/pinctrl-mt6779.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt6795.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt6797.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt6858.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt6878.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt6893.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt7622.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt7981.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt7986.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt7988.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8167.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8173.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8183.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8186.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8188.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8189.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8192.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8195.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8196.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8365.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt8516.ko
+kernel/drivers/pinctrl/mediatek/pinctrl-mt6397.ko
 kernel/drivers/pinctrl/meson/pinctrl-meson.ko
 kernel/drivers/pinctrl/meson/pinctrl-meson8-pmx.ko
 kernel/drivers/pinctrl/meson/pinctrl-meson-gxbb.ko
@@ -214,6 +238,7 @@ kernel/drivers/pinctrl/qcom/pinctrl-ipq6018.ko
 kernel/drivers/pinctrl/qcom/pinctrl-ipq9574.ko
 kernel/drivers/pinctrl/qcom/pinctrl-ipq9650.ko
 kernel/drivers/pinctrl/qcom/pinctrl-kaanapali.ko
+kernel/drivers/pinctrl/qcom/pinctrl-maili.ko
 kernel/drivers/pinctrl/qcom/pinctrl-msm8916.ko
 kernel/drivers/pinctrl/qcom/pinctrl-msm8953.ko
 kernel/drivers/pinctrl/qcom/pinctrl-msm8976.ko
@@ -265,6 +290,7 @@ kernel/drivers/pinctrl/sophgo/pinctrl-sg2000.ko
 kernel/drivers/pinctrl/stm32/pinctrl-stm32.ko
 kernel/drivers/pinctrl/stm32/pinctrl-stm32mp257.ko
 kernel/drivers/pinctrl/stm32/pinctrl-stm32-hdp.ko
+kernel/drivers/gpio/gpio-regmap.ko
 kernel/drivers/gpio/gpio-generic.ko
 kernel/drivers/gpio/gpio-xgs-iproc.ko
 kernel/drivers/gpio/gpio-blzp1600.ko
@@ -282,6 +308,7 @@ kernel/drivers/gpio/gpio-raspberrypi-exp.ko
 kernel/drivers/gpio/gpio-rcar.ko
 kernel/drivers/gpio/gpio-rockchip.ko
 kernel/drivers/gpio/gpio-rtd.ko
+kernel/drivers/gpio/gpio-rtd1625.ko
 kernel/drivers/gpio/gpio-syscon.ko
 kernel/drivers/gpio/gpio-tegra186.ko
 kernel/drivers/gpio/gpio-tegra.ko
@@ -339,7 +366,7 @@ kernel/drivers/clk/clk-pwm.ko
 kernel/drivers/clk/clk-rk808.ko
 kernel/drivers/clk/clk-hi655x.ko
 kernel/drivers/clk/clk-s2mps11.ko
-kernel/drivers/clk/clk-scmi.ko
+kernel/drivers/clk/scmi-clk.ko
 kernel/drivers/clk/clk-scpi.ko
 kernel/drivers/clk/clk-renesas-pcie.ko
 kernel/drivers/clk/clk-versaclock3.ko
@@ -412,6 +439,7 @@ kernel/drivers/clk/mediatek/clk-mt8173-infracfg.ko
 kernel/drivers/clk/mediatek/clk-mt8173-pericfg.ko
 kernel/drivers/clk/mediatek/clk-mt8173-topckgen.ko
 kernel/drivers/clk/mediatek/clk-mt8173-img.ko
+kernel/drivers/clk/mediatek/clk-mt8173-mfgtop.ko
 kernel/drivers/clk/mediatek/clk-mt8173-mm.ko
 kernel/drivers/clk/mediatek/clk-mt8173-vdecsys.ko
 kernel/drivers/clk/mediatek/clk-mt8173-vencsys.ko
@@ -524,6 +552,8 @@ kernel/drivers/clk/meson/vid-pll-div.ko
 kernel/drivers/clk/meson/vclk.ko
 kernel/drivers/clk/meson/axg.ko
 kernel/drivers/clk/meson/axg-aoclk.ko
+kernel/drivers/clk/meson/a9-peripherals.ko
+kernel/drivers/clk/meson/a9-aoclk.ko
 kernel/drivers/clk/meson/c3-pll.ko
 kernel/drivers/clk/meson/c3-peripherals.ko
 kernel/drivers/clk/meson/gxbb.ko
@@ -538,7 +568,13 @@ kernel/drivers/clk/nuvoton/clk-ma35d1.ko
 kernel/drivers/clk/qcom/clk-qcom.ko
 kernel/drivers/clk/qcom/gcc-eliza.ko
 kernel/drivers/clk/qcom/gcc-glymur.ko
+kernel/drivers/clk/qcom/gcc-hawi.ko
 kernel/drivers/clk/qcom/gcc-kaanapali.ko
+kernel/drivers/clk/qcom/gcc-nord.ko
+kernel/drivers/clk/qcom/negcc-nord.ko
+kernel/drivers/clk/qcom/nwgcc-nord.ko
+kernel/drivers/clk/qcom/segcc-nord.ko
+kernel/drivers/clk/qcom/gcc-shikra.ko
 kernel/drivers/clk/qcom/gcc-x1e80100.ko
 kernel/drivers/clk/qcom/tcsrcc-x1e80100.ko
 kernel/drivers/clk/qcom/apss-ipq-pll.ko
@@ -554,6 +590,7 @@ kernel/drivers/clk/qcom/gcc-ipq9574.ko
 kernel/drivers/clk/qcom/gcc-ipq9650.ko
 kernel/drivers/clk/qcom/gcc-msm8916.ko
 kernel/drivers/clk/qcom/gcc-msm8953.ko
+kernel/drivers/clk/qcom/gcc-msm8976.ko
 kernel/drivers/clk/qcom/gcc-msm8994.ko
 kernel/drivers/clk/qcom/gcc-msm8996.ko
 kernel/drivers/clk/qcom/gcc-msm8998.ko
@@ -575,6 +612,7 @@ kernel/drivers/clk/qcom/gcc-sc7280.ko
 kernel/drivers/clk/qcom/gcc-sc8180x.ko
 kernel/drivers/clk/qcom/gcc-sc8280xp.ko
 kernel/drivers/clk/qcom/dispcc-sdm845.ko
+kernel/drivers/clk/qcom/gcc-sdm660.ko
 kernel/drivers/clk/qcom/gcc-sdm845.ko
 kernel/drivers/clk/qcom/gpucc-sdm845.ko
 kernel/drivers/clk/qcom/videocc-sdm845.ko
@@ -582,7 +620,10 @@ kernel/drivers/clk/qcom/gcc-sdx75.ko
 kernel/drivers/clk/qcom/dispcc-sm8250.ko
 kernel/drivers/clk/qcom/gcc-sm4450.ko
 kernel/drivers/clk/qcom/gcc-sm6115.ko
+kernel/drivers/clk/qcom/gcc-sm6125.ko
 kernel/drivers/clk/qcom/gcc-sm6350.ko
+kernel/drivers/clk/qcom/gcc-sm6375.ko
+kernel/drivers/clk/qcom/gcc-sm7150.ko
 kernel/drivers/clk/qcom/gcc-sm8150.ko
 kernel/drivers/clk/qcom/gcc-sm8250.ko
 kernel/drivers/clk/qcom/gcc-sm8350.ko
@@ -658,7 +699,7 @@ kernel/drivers/soc/qcom/cmd-db.ko
 kernel/drivers/soc/qcom/qcom_rpmh.ko
 kernel/drivers/soc/qcom/rpm-proc.ko
 kernel/drivers/soc/qcom/smd-rpm.ko
-kernel/drivers/soc/qcom/smem.ko
+kernel/drivers/soc/qcom/qcom_smem.ko
 kernel/drivers/soc/qcom/smp2p.ko
 kernel/drivers/soc/qcom/smsm.ko
 kernel/drivers/soc/renesas/pwc-rzv2m.ko
@@ -759,6 +800,7 @@ kernel/drivers/tty/serial/8250/8250_dw.ko
 kernel/drivers/tty/serial/8250/8250_em.ko
 kernel/drivers/tty/serial/8250/8250_exar.ko
 kernel/drivers/tty/serial/8250/8250_fsl.ko
+kernel/drivers/tty/serial/8250/8250_mxpcie.ko
 kernel/drivers/tty/serial/8250/8250_mtk.ko
 kernel/drivers/tty/serial/8250/8250_of.ko
 kernel/drivers/tty/serial/8250/8250_omap.ko
@@ -845,6 +887,7 @@ kernel/drivers/mfd/sec-i2c.ko
 kernel/drivers/mfd/vexpress-sysreg.ko
 kernel/drivers/mfd/hi6421-pmic-core.ko
 kernel/drivers/mfd/hi655x-pmic.ko
+kernel/drivers/mfd/rohm-pwrbutton.ko
 kernel/drivers/mfd/rohm-bd718x7.ko
 kernel/drivers/mfd/simple-mfd-i2c.ko
 kernel/drivers/scsi/scsi_mod.ko
@@ -1231,6 +1274,7 @@ kernel/drivers/firmware/qcom/qcom-scm.ko
 kernel/drivers/firmware/qcom/qcom_tzmem.ko
 kernel/drivers/firmware/qcom/qcom_qseecom.ko
 kernel/drivers/firmware/qcom/qcom_qseecom_uefisecapp.ko
+kernel/drivers/firmware/qcom/qcom_pas.ko
 kernel/drivers/hid/hid.ko
 kernel/drivers/hid/hid-generic.ko
 kernel/drivers/hid/usbhid/usbhid.ko
@@ -1291,6 +1335,7 @@ kernel/drivers/perf/hisilicon/hisi_uncore_uc_pmu.ko
 kernel/drivers/perf/hisilicon/hisi_uncore_noc_pmu.ko
 kernel/drivers/perf/hisilicon/hisi_uncore_mn_pmu.ko
 kernel/drivers/nvmem/layouts/fixed-layout.ko
+kernel/drivers/nvmem/nvmem-airoha-smc-efuses.ko
 kernel/drivers/nvmem/nvmem-bcm-ocotp.ko
 kernel/drivers/nvmem/nvmem-imx-ocotp.ko
 kernel/drivers/nvmem/nvmem-imx-ocotp-scu.ko
@@ -1313,6 +1358,7 @@ kernel/drivers/interconnect/qcom/icc-bcm-voter.ko
 kernel/drivers/interconnect/qcom/qnoc-eliza.ko
 kernel/drivers/interconnect/qcom/qnoc-glymur.ko
 kernel/drivers/interconnect/qcom/qnoc-kaanapali.ko
+kernel/drivers/interconnect/qcom/qnoc-maili.ko
 kernel/drivers/interconnect/qcom/qnoc-milos.ko
 kernel/drivers/interconnect/qcom/qnoc-msm8953.ko
 kernel/drivers/interconnect/qcom/qnoc-msm8996.ko
